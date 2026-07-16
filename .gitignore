@@ -15,6 +15,7 @@
 .DS_Store
 .agents/
 .claude/
+.vercel/
 .vscode/
 .env
 .env.development
