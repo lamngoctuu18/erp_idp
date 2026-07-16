@@ -1,0 +1,1133 @@
+/* ============================================================
+   Trang đăng nhập IDP ERP
+   - Trái  ~54% : thương hiệu + minh hoạ hệ thống (nền xanh đậm)
+   - Phải  ~46% : slogan + form đăng nhập (nền trắng xanh nhạt)
+   Ranh giới hai vùng được làm mềm bằng dải chuyển màu, không kẻ cứng.
+   Mọi chuyển động tắt khi người dùng bật "giảm chuyển động".
+   ============================================================ */
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 54fr 46fr;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #f8fbff;
+  color: #101828;
+}
+
+/* ---------------- Panel trái: thương hiệu ---------------- */
+
+.left {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 52px 56px;
+  color: #f8fafc;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(145deg, #082f49 0%, #0b4a6f 55%, #087f8c 100%);
+  background-size: 64px 64px, 64px 64px, auto;
+}
+
+/* Quầng sáng xanh ngọc trôi chậm phía sau minh hoạ */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.42;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.orbOne {
+  top: -14%;
+  left: -10%;
+  width: 460px;
+  height: 460px;
+  background: radial-gradient(circle, #38bdf8, transparent 68%);
+  animation: drift 20s ease-in-out infinite;
+}
+
+.orbTwo {
+  right: -16%;
+  bottom: -12%;
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, #2dd4bf, transparent 68%);
+  animation: drift 24s ease-in-out infinite reverse;
+}
+
+.orbThree {
+  top: 42%;
+  left: 46%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #22d3ee, transparent 70%);
+  opacity: 0.26;
+  animation: drift 28s ease-in-out infinite 2s;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(42px, -34px, 0) scale(1.1);
+  }
+  66% {
+    transform: translate3d(-30px, 28px, 0) scale(0.94);
+  }
+}
+
+.brandRow,
+.tagline,
+.showcase {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Logo ---- */
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  animation: riseIn 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.brandMark {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.brandSub {
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 12px;
+}
+
+/* ---- Câu mô tả sản phẩm ---- */
+
+.tagline {
+  margin-top: 44px;
+  animation: riseIn 660ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+
+/* Giữ trên một dòng — cỡ chữ co lại theo bề rộng panel ở các breakpoint dưới */
+.taglineTitle {
+  margin: 0;
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.taglineSub {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* ---- Vùng minh hoạ ---- */
+
+.showcase {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 32px 0 8px;
+}
+
+/* Dashboard kính mờ */
+.dashCard {
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  animation: riseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+}
+
+.dashHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.dashTitle {
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.syncPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.syncDot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6);
+  animation: pulse 2.4s ease-out infinite;
+}
+
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 7px rgba(52, 211, 153, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+  }
+}
+
+.chart {
+  display: block;
+  width: 100%;
+  height: 116px;
+}
+
+/* Thẻ số liệu trong dashboard */
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.statLabel {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+}
+
+.statValue {
+  margin-top: 3px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.statUp,
+.statDown {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.statUp {
+  color: #4ade80;
+}
+
+.statDown {
+  color: #fca5a5;
+}
+
+/* ---- Thẻ phân hệ ---- */
+
+.moduleGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.moduleCard {
+  position: relative;
+  padding: 14px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top-width: 2px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  animation: riseIn 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms ease, background-color 240ms ease;
+}
+
+.moduleCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Đường kết nối giữa các phân hệ */
+.moduleCard:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -13px;
+  width: 14px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0.75),
+    rgba(45, 212, 191, 0.75)
+  );
+}
+
+.moduleCard.purchase {
+  border-top-color: #a78bfa;
+}
+
+.moduleCard.inventory {
+  border-top-color: #34d399;
+}
+
+.moduleCard.asset {
+  border-top-color: #f59e0b;
+}
+
+.moduleCard.receivable {
+  border-top-color: #38bdf8;
+}
+
+.moduleTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.moduleIcon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 240ms ease;
+}
+
+.moduleCard:hover .moduleIcon {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Chấm xanh báo phân hệ đang hoạt động */
+.moduleDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.8);
+}
+
+.moduleCode {
+  margin-top: 12px;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.moduleName {
+  margin-top: 1px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+}
+
+/* ---------------- Panel phải: đăng nhập ---------------- */
+
+.right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px;
+  background: linear-gradient(145deg, #f8fbff, #eef6fc);
+}
+
+/* Làm mềm ranh giới với panel trái */
+.right::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 180px;
+  background: linear-gradient(90deg, rgba(8, 127, 140, 0.09), transparent);
+  pointer-events: none;
+}
+
+/* Vùng sáng xanh rất mờ tạo chiều sâu sau form */
+.right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 620px;
+  height: 620px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(22, 119, 255, 0.07),
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+/* Khối tiêu đề được rộng hết cỡ để dòng mô tả nằm trọn một dòng; form và
+   chân trang vẫn giữ 440px. Tất cả căn giữa nên vẫn chung một trục. */
+.rightInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- Slogan ---- */
+
+.slogan {
+  width: 100%;
+  margin: 0 auto 26px;
+  text-align: center;
+  animation: riseIn 660ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
+}
+
+/* Nhãn thương hiệu dạng capsule */
+.brandBadge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(22, 119, 255, 0.09);
+  color: #1677ff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.headline {
+  margin: 11px 0 0;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.headlineLine {
+  display: block;
+  color: #101828;
+}
+
+/* Chỉ dòng thứ hai dùng gradient */
+.headlineAccent {
+  display: block;
+  margin-top: 3px;
+  background: linear-gradient(90deg, #246beb, #0d9e9a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sloganSub {
+  margin: 12px auto 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: nowrap; /* giữ trọn một dòng; màn hình nhỏ sẽ cho xuống dòng lại */
+}
+
+/* ---- Thẻ đăng nhập ---- */
+
+.form {
+  position: relative;
+  width: min(100%, 440px);
+  padding: 36px;
+  border: 1px solid #e7ecf2;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 20px 50px rgba(15, 42, 67, 0.1);
+  animation: riseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+}
+
+.formHeader {
+  margin-bottom: 24px;
+}
+
+.formTitle {
+  margin: 0;
+  color: #101828;
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.formSubtitle {
+  margin-top: 6px;
+  color: #667085;
+  font-size: 13.5px;
+}
+
+/* ---- Ô nhập liệu ---- */
+
+/* Khoảng cách giữa các ô nhập — đặt ở đây để media query co lại được */
+.authRoot {
+  margin-bottom: 16px;
+}
+
+.authLabel {
+  margin-bottom: 7px;
+  color: #344054;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.authRequired {
+  color: #f04438;
+  font-size: 13px;
+}
+
+/* Các khai báo dưới đây phải bọc trong `.form` để thắng style mặc định của
+   Mantine: cùng specificity nhưng stylesheet của Mantine nạp sau nên sẽ đè
+   lên CSS module nếu chỉ dùng một class đơn. */
+.form .authInput {
+  height: 50px;
+  min-height: 50px;
+  padding-left: 44px;
+  border-color: #d9e1ea;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #101828;
+  font-size: 14.5px;
+  transition: border-color 180ms ease, box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.form .authInput::placeholder {
+  color: #98a2b3;
+}
+
+.form .authInput:focus,
+.form .authInput:focus-within {
+  border-color: #1677ff;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(22, 119, 255, 0.1);
+}
+
+/* Ô nhập thật bên trong PasswordInput. Mantine định vị nó tuyệt đối ở left:0
+   nên nó KHÔNG thừa hưởng padding của lớp bọc — phải tự chừa chỗ cho icon. */
+.form .authInnerInput {
+  height: 48px;
+  padding-left: 44px;
+  color: #101828;
+  font-size: 14.5px;
+}
+
+.form .authInnerInput::placeholder {
+  color: #98a2b3;
+}
+
+/* Icon trái trong ô nhập */
+.form .authSection {
+  width: 44px;
+  color: #98a2b3;
+}
+
+/* Nút hiện/ẩn mật khẩu — vùng bấm tối thiểu 36×36 và không sát mép */
+.form .authVisibilityToggle {
+  width: 36px;
+  height: 36px;
+  margin-right: 6px;
+  border-radius: 8px;
+  color: #667085;
+}
+
+.form .authVisibilityToggle:hover {
+  background: #f2f4f7;
+}
+
+.authDescription {
+  margin-top: 6px;
+  color: #98a2b3;
+}
+
+/* ---- Hàng tuỳ chọn ---- */
+
+.formOptions {
+  align-items: center;
+  margin: 0 0 20px;
+}
+
+.rememberLabel {
+  color: #475467;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.forgotLink {
+  color: #1677ff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.forgotLink:hover {
+  text-decoration: underline;
+}
+
+/* ---- Nút đăng nhập ---- */
+
+.form .submitButton {
+  height: 52px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #246beb, #0d9e9a);
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(36, 107, 235, 0.2);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.form .submitButton:not(:disabled):hover {
+  transform: translateY(-1px);
+  filter: saturate(1.12) brightness(0.96);
+  box-shadow: 0 14px 30px rgba(36, 107, 235, 0.26);
+}
+
+.form .submitButton:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* ---- Chân trang ---- */
+
+.pageFooter {
+  width: min(100%, 440px);
+  margin-top: 26px;
+  color: #98a2b3;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+  animation: riseIn 660ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both;
+}
+
+.pageFooter p {
+  margin: 0;
+}
+
+.pageFooter p:first-child {
+  margin-bottom: 8px;
+  color: #667085;
+}
+
+/* Dùng `translate` (không phải `transform`) cho hiệu ứng xuất hiện.
+   Vì animation-fill-mode: both giữ nguyên trạng thái cuối và animation luôn
+   thắng khai báo thường, nếu keyframe đặt `transform` thì `transform` của
+   :hover sẽ bị ghi đè và thẻ không nâng lên được. */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 78em) {
+  .left {
+    padding: 40px;
+  }
+
+  /* Co chữ để tagline vẫn nằm trọn một dòng khi panel hẹp lại */
+  .taglineTitle {
+    font-size: 21px;
+  }
+
+  .headline {
+    font-size: 34px;
+  }
+
+  .rightInner {
+    width: min(100%, 420px);
+  }
+
+  .slogan {
+    max-width: 420px;
+  }
+
+  .right {
+    padding: 40px 32px;
+  }
+}
+
+/* ---- Màn hình thấp: nén dần để trang không phải cuộn ----
+   Panel phải quyết định chiều cao (cao hơn panel trái), nên ưu tiên nén nó. */
+
+@media (max-height: 820px) and (min-width: 48.01em) {
+  .left {
+    padding: 32px 40px;
+  }
+
+  .tagline {
+    margin-top: 24px;
+  }
+
+  .showcase {
+    gap: 14px;
+    padding: 18px 0 0;
+  }
+
+  .chart {
+    height: 96px;
+  }
+
+  .right {
+    padding: 28px 40px;
+  }
+
+  .slogan {
+    margin-bottom: 18px;
+  }
+
+  .headline {
+    font-size: 32px;
+  }
+
+  .form {
+    padding: 28px;
+  }
+
+  .formHeader {
+    margin-bottom: 16px;
+  }
+
+  .formTitle {
+    font-size: 25px;
+  }
+
+  .authRoot {
+    margin-bottom: 12px;
+  }
+
+  .formOptions {
+    margin-bottom: 16px;
+  }
+
+  .pageFooter {
+    margin-top: 16px;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 48.01em) {
+  .left {
+    padding: 22px 32px;
+  }
+
+  .tagline {
+    margin-top: 16px;
+  }
+
+  .taglineTitle {
+    font-size: 19px;
+  }
+
+  .showcase {
+    gap: 10px;
+    padding: 12px 0 0;
+  }
+
+  .dashCard {
+    padding: 14px;
+  }
+
+  .chart {
+    height: 76px;
+  }
+
+  .right {
+    padding: 18px 32px;
+  }
+
+  .slogan {
+    margin-bottom: 14px;
+  }
+
+  .brandBadge {
+    padding: 4px 10px;
+    font-size: 11.5px;
+  }
+
+  .headline {
+    margin-top: 8px;
+    font-size: 28px;
+  }
+
+  .sloganSub {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  .form {
+    padding: 22px 24px;
+  }
+
+  .formHeader {
+    margin-bottom: 12px;
+  }
+
+  .formTitle {
+    font-size: 23px;
+  }
+
+  .formSubtitle {
+    font-size: 12.5px;
+  }
+
+  .authRoot {
+    margin-bottom: 10px;
+  }
+
+  .authLabel {
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+
+  .form .authInput {
+    height: 48px;
+    min-height: 48px;
+  }
+
+  .form .authInnerInput {
+    height: 46px;
+  }
+
+  .formOptions {
+    margin-bottom: 14px;
+  }
+
+  .form .submitButton {
+    height: 48px;
+  }
+
+  .pageFooter {
+    margin-top: 12px;
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  .pageFooter p:first-child {
+    margin-bottom: 4px;
+  }
+}
+
+/* Tablet: dải thương hiệu mỏng phía trên thay vì chia đôi màn hình */
+@media (max-width: 64em) and (min-width: 48.01em) {
+  .wrapper {
+    display: block;
+    background: linear-gradient(145deg, #f8fbff, #eef6fc);
+  }
+
+  .left {
+    min-height: 0;
+    padding: 24px 32px;
+  }
+
+  .tagline,
+  .showcase {
+    display: none;
+  }
+
+  .right {
+    min-height: 0;
+    padding: 44px 32px 56px;
+  }
+
+  .right::before {
+    display: none;
+  }
+}
+
+/* Mobile: chỉ giữ logo, form chiếm toàn bộ chiều rộng */
+@media (max-width: 48em) {
+  .wrapper {
+    display: block;
+    background: linear-gradient(145deg, #082f49 0%, #0b4a6f 55%, #087f8c 100%);
+  }
+
+  .left {
+    min-height: 0;
+    padding: 24px 20px 0;
+  }
+
+  .tagline,
+  .showcase {
+    display: none;
+  }
+
+  .right {
+    min-height: 0;
+    padding: 24px 20px 40px;
+    background: transparent;
+  }
+
+  .right::before,
+  .right::after {
+    display: none;
+  }
+
+  .rightInner {
+    width: 100%;
+  }
+
+  /* Logo đã hiện ở đầu trang nên ẩn nhãn thương hiệu để khỏi lặp */
+  .brandBadge {
+    display: none;
+  }
+
+  .slogan {
+    margin-bottom: 24px;
+    padding: 0;
+  }
+
+  /* Màn hình hẹp không đủ chỗ cho một dòng — cho xuống dòng để khỏi tràn ngang.
+     &nbsp; trong JSX vẫn giữ các từ ghép không bị tách đôi. */
+  .sloganSub {
+    max-width: 360px;
+    white-space: normal;
+    text-wrap: balance;
+  }
+
+  /* Nền chuyển sang tối — slogan phải đổi sang chữ sáng */
+  .headline {
+    margin-top: 0;
+    font-size: 31px;
+  }
+
+  .headlineLine {
+    color: #ffffff;
+  }
+
+  .headlineAccent {
+    background-image: linear-gradient(90deg, #38bdf8, #2dd4bf);
+  }
+
+  .sloganSub {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  /* Thẻ đăng nhập bỏ bóng lớn, dùng nền trong suốt nhẹ */
+  .form {
+    padding: 24px 20px;
+    border-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+    backdrop-filter: blur(14px);
+  }
+
+  .formTitle {
+    color: #ffffff;
+    font-size: 24px;
+  }
+
+  .formSubtitle,
+  .authLabel {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .form .authInput,
+  .form .authInnerInput {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+  }
+
+  .form .authInnerInput {
+    background: transparent;
+  }
+
+  .form .authInput::placeholder,
+  .form .authInnerInput::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .form .authInput:focus,
+  .form .authInput:focus-within {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.16);
+  }
+
+  .rememberLabel {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .forgotLink {
+    color: #7dd3fc;
+  }
+
+  .pageFooter {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .pageFooter p:first-child {
+    color: rgba(255, 255, 255, 0.68);
+  }
+}
+
+/* Điện thoại màn hình thấp (vd 360×640): nén để khỏi phải cuộn.
+   Ô nhập vẫn giữ 48px cho dễ bấm; chỗ tiết kiệm lấy từ khoảng cách và
+   dòng hỗ trợ ở chân trang. */
+@media (max-width: 48em) and (max-height: 730px) {
+  .left {
+    padding: 12px 20px 0;
+  }
+
+  .brandMark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .right {
+    padding: 12px 20px 16px;
+  }
+
+  .slogan {
+    margin-bottom: 10px;
+  }
+
+  .headline {
+    font-size: 26px;
+  }
+
+  .sloganSub {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  .form {
+    padding: 16px 14px;
+  }
+
+  .formHeader {
+    margin-bottom: 10px;
+  }
+
+  .formTitle {
+    font-size: 21px;
+  }
+
+  .authRoot {
+    margin-bottom: 8px;
+  }
+
+  .authLabel {
+    margin-bottom: 5px;
+  }
+
+  .form .authInput {
+    height: 48px;
+    min-height: 48px;
+  }
+
+  .form .authInnerInput {
+    height: 46px;
+  }
+
+  .formOptions {
+    margin-bottom: 12px;
+  }
+
+  .form .submitButton {
+    height: 48px;
+  }
+
+  .pageFooter {
+    margin-top: 10px;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* Dòng hỗ trợ nhường chỗ — thông tin bản quyền/phiên bản vẫn giữ */
+  .pageFooter p:first-child {
+    display: none;
+  }
+}
+
+/* Tôn trọng lựa chọn giảm chuyển động của người dùng */
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .syncDot {
+    animation: none;
+  }
+
+  .brandRow,
+  .tagline,
+  .dashCard,
+  .moduleCard,
+  .slogan,
+  .form,
+  .pageFooter {
+    animation: none;
+    opacity: 1;
+    translate: none;
+    transform: none;
+  }
+
+  .moduleCard,
+  .moduleIcon,
+  .form .submitButton {
+    transition: none;
+  }
+
+  .moduleCard:hover,
+  .form .submitButton:not(:disabled):hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,213 @@
+/* ArReceivable.css - Modern Premium Styles for Accounts Receivable Module */
+
+:root {
+  --ar-primary: #3f51b5;
+  --ar-primary-light: rgba(63, 81, 181, 0.08);
+  --ar-secondary: #00bcd4;
+  --ar-success: #10b981;
+  --ar-warning: #f59e0b;
+  --ar-danger: #ef4444;
+  --ar-dark-bg: #0f172a;
+  
+  /* Gradient Presets */
+  --ar-gradient-primary: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  --ar-gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --ar-gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --ar-gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  --ar-gradient-info: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  --ar-gradient-glass: rgba(255, 255, 255, 0.75);
+  
+  /* Modern Shadows */
+  --ar-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --ar-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --ar-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --ar-shadow-premium: 0 20px 25px -5px rgba(59, 130, 246, 0.05), 0 10px 10px -5px rgba(59, 130, 246, 0.03);
+}
+
+/* Base Animating Layout */
+.ar-view-fade-in {
+  animation: arFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes arFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Premium Dashboard Metrics Cards */
+.ar-stat-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  background: #ffffff !important;
+  box-shadow: var(--ar-shadow-sm) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ar-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--ar-gradient-primary);
+}
+
+.ar-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ar-shadow-lg) !important;
+  border-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+.ar-stat-card.overdue::before {
+  background: var(--ar-gradient-danger);
+}
+.ar-stat-card.success::before {
+  background: var(--ar-gradient-success);
+}
+.ar-stat-card.warning::before {
+  background: var(--ar-gradient-warning);
+}
+
+/* Glassmorphism Accents */
+.glass-panel {
+  background: var(--ar-gradient-glass) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: var(--ar-shadow-premium) !important;
+}
+
+/* Beautiful Interactive Tables */
+.mantine-Table-root {
+  border-collapse: separate !important;
+  border-spacing: 0 4px !important;
+}
+
+.mantine-Table-thead tr {
+  background: #f8fafc !important;
+}
+
+.mantine-Table-thead th {
+  font-weight: 600 !important;
+  color: #475569 !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: 0.5px !important;
+  padding: 12px 16px !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+.mantine-Table-tbody tr {
+  transition: all 0.2s ease !important;
+  border-radius: 8px !important;
+}
+
+.mantine-Table-tbody tr:hover {
+  background-color: #f1f5f9 !important;
+  transform: scale(1.002);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+}
+
+.mantine-Table-tbody td {
+  padding: 14px 16px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* Premium Form Elements styling */
+.ar-form-section {
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
+  box-shadow: var(--ar-shadow-sm) !important;
+  padding: 24px !important;
+  margin-bottom: 20px !important;
+}
+
+.ar-form-title {
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  color: #1e293b !important;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 20px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Button & Micro-interaction styling */
+.ar-btn-primary {
+  background: var(--ar-gradient-primary) !important;
+  border: none !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.ar-btn-primary:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.ar-btn-success {
+  background: var(--ar-gradient-success) !important;
+  border: none !important;
+}
+
+.ar-btn-success:hover {
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+/* Timeline Custom Premium Design */
+.mantine-Timeline-item {
+  padding-left: 28px !important;
+}
+
+.mantine-Timeline-itemBullet {
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Horizontal scrollable tab beauty bar */
+.mantine-Tabs-list {
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+.mantine-Tabs-tab {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  color: #64748b !important;
+  padding: 12px 18px !important;
+  transition: all 0.25s ease !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.mantine-Tabs-tab:hover {
+  color: #4f46e5 !important;
+  background: #f8fafc !important;
+}
+
+.mantine-Tabs-tab[data-active] {
+  color: #4f46e5 !important;
+  border-bottom-color: #4f46e5 !important;
+  font-weight: 700 !important;
+}
+
+/* Modern Pill Badges */
+.status-pill {
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 10px !important;
+  letter-spacing: 0.5px !important;
+  border-radius: 9999px !important;
+  padding: 4px 10px !important;
+}

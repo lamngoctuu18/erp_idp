@@ -1,0 +1,130 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  # TẮT BuildKit: runner "Backup" không có plugin buildx nên DOCKER_BUILDKIT=1
+  # sẽ lỗi "buildx component is missing". Dùng legacy builder + giữ cache bằng
+  # layer cache; job deploy prune có --filter until nên không xoá cache mới.
+  DOCKER_BUILDKIT: "0"
+  DOCKER_IMAGE: "idps-fixedasset-fe:latest"
+  APP_HOSTNAME: "erp.idps.cloud"
+  APP_PORT: "8080"
+  CLOUDFLARED_CONFIG: 'C:\GitLab-Runner\config.yml'
+  CLOUDFLARED_TUNNEL: "salesbook-tunnel"
+
+before_script:
+  - docker info
+
+build-main:
+  stage: build
+  tags:
+    - deploy-prod
+  # Nới thời gian tối đa của job (mặc định project là 1h) để lần build lạnh
+  # với mạng chậm vẫn đủ thời gian cài package. Nếu vẫn bị cắt ở 1h, cần
+  # tăng "Maximum job timeout" của runner trong Settings > CI/CD > Runners.
+  timeout: 3h
+  script:
+    - echo "Building Frontend Docker image..."
+    - $DATE_BUILD = (Get-Date -Format "yyyy-MM-dd")
+    - $API_URL = if ([string]::IsNullOrWhiteSpace($env:REACT_APP_API_URL)) { "https://apis-pos-dev.hacom.vn/api-erp" } else { $env:REACT_APP_API_URL }
+    - $AUTH_API_URL = if ([string]::IsNullOrWhiteSpace($env:REACT_APP_AUTH_API_URL)) { "https://auth.idps.cloud/" } else { $env:REACT_APP_AUTH_API_URL }
+    - >
+      docker build
+      --build-arg REACT_APP_VERSION="$env:CI_PIPELINE_ID"
+      --build-arg REACT_APP_HASH_COMMIT="$env:CI_COMMIT_SHORT_SHA"
+      --build-arg REACT_APP_DATE_BUILD="$DATE_BUILD"
+      --build-arg REACT_APP_API_URL="$API_URL"
+      --build-arg REACT_APP_AUTH_API_URL="$AUTH_API_URL"
+      -t "$env:DOCKER_IMAGE" -f "./Dockerfile" .
+  only:
+    - main
+
+deploy-main:
+  stage: deploy
+  tags:
+    - deploy-prod
+  script:
+    - echo "Deploying via Docker Compose..."
+    - docker-compose up -d --no-build --force-recreate --remove-orphans
+    - |
+      $healthUrl = "http://127.0.0.1:$env:APP_PORT/"
+      $ready = $false
+      for ($i = 1; $i -le 12; $i++) {
+        try {
+          $response = Invoke-WebRequest -Uri $healthUrl -UseBasicParsing -TimeoutSec 5
+          if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 500) {
+            $ready = $true
+            break
+          }
+        } catch {
+          Start-Sleep -Seconds 5
+        }
+      }
+
+      if (-not $ready) {
+        docker logs idps-fixedasset-fe --tail 80
+        throw "Frontend container is not responding on $healthUrl"
+      }
+    # Chỉ xoá image dangling CŨ hơn 48h -> giữ lại cache stage builder vừa tạo
+    # (yarn install/build) để pipeline sau tái dùng, tránh cài lại từ đầu.
+    - docker image prune -f --filter "until=48h"
+    - echo "Checking Cloudflare Tunnel configuration..."
+    - |
+      $configFile = $env:CLOUDFLARED_CONFIG
+      $configChanged = $false
+      if (-not (Test-Path $configFile)) {
+        throw "Cloudflared config file not found: $configFile"
+      }
+
+      $content = Get-Content $configFile -Raw
+      $hostnamePattern = [regex]::Escape($env:APP_HOSTNAME)
+      if ($content -notmatch $hostnamePattern) {
+        Write-Output "Adding $env:APP_HOSTNAME mapping to cloudflared config..."
+        if ($content -notmatch '  - service: http_status:404') {
+          throw "Cannot find fallback ingress rule in $configFile"
+        }
+        $newMapping = "  - hostname: $env:APP_HOSTNAME`r`n    service: http://localhost:$env:APP_PORT`r`n  - service: http_status:404"
+        $newContent = $content -replace '  - service: http_status:404', $newMapping
+        Set-Content -Path $configFile -Value $newContent -Encoding UTF8
+        $configChanged = $true
+      } else {
+        Write-Output "$env:APP_HOSTNAME mapping already exists in cloudflared config."
+      }
+
+      $cloudflared = "C:\GitLab-Runner\cloudflared.exe"
+      if (-not (Test-Path $cloudflared)) {
+        throw "cloudflared executable not found: $cloudflared"
+      }
+
+      Write-Output "Ensuring DNS route for $env:APP_HOSTNAME..."
+      & $cloudflared tunnel route dns $env:CLOUDFLARED_TUNNEL $env:APP_HOSTNAME
+      $routeExitCode = $LASTEXITCODE
+      if ($routeExitCode -ne 0) {
+        Write-Warning "cloudflared tunnel route dns returned exit code $routeExitCode. Continuing to verify DNS."
+      }
+
+      if ($configChanged) {
+        Write-Output "Restarting Cloudflared service..."
+        Restart-Service -Name "Cloudflared"
+      }
+
+      $dnsReady = $false
+      for ($i = 1; $i -le 6; $i++) {
+        try {
+          $records = Resolve-DnsName $env:APP_HOSTNAME -ErrorAction Stop
+          if ($records) {
+            $dnsReady = $true
+            break
+          }
+        } catch {
+          Start-Sleep -Seconds 10
+        }
+      }
+
+      if (-not $dnsReady) {
+        throw "DNS for $env:APP_HOSTNAME is still not resolvable after updating Cloudflare route."
+      }
+    - echo "Deployment successful!"
+  only:
+    - main

@@ -1,0 +1,71 @@
+export const _localization = {
+  selectedCountOfRowCountRowsSelected:
+    "{selectedCount} / {rowCount} hàng đang chọn",
+  clearSelection: "Xóa lựa chọn",
+  clearFilter: "Xóa bộ lọc",
+  clearSearch: "Xóa từ khóah",
+  clearSort: "Xóa sắp xếp",
+  showAll: "Hiển thị tất cả",
+  showAllColumns: "Hiển thị tất cả cột",
+  showHideColumns: "Hiển/ẩn cột",
+  showHideFilters: "Hiển/ẩn bộ lọc",
+  showHideSearch: "Hiển/ẩn tìm kiếm",
+  toggleDensity: "Đổi kích thước",
+  toggleFullScreen: "Xem toàn màn hình",
+  toggleSelectAll: "Chọn tất cả",
+  toggleSelectRow: "Chọn hàng",
+  toggleVisibility: "Hiện/ẩn",
+  rowsPerPage: "Số hàng hiển thị",
+  sortByColumnAsc: "Sắp xếp {column} tăng dần",
+  sortByColumnDesc: "Sắp xếp {column} giảm dần",
+  sortedByColumnAsc: "Đã sắp xếp {column} tăng dần",
+  sortedByColumnDesc: "Đã sắp xếp {column} giảm dần",
+  hideAll: "Ẩn tất cả",
+  hideColumn: "Ẩn {column} cột",
+  filteringByColumn: "Lọc theo {column} - {filterType} {filterValue}",
+  filterByColumn: "Lọc theo {column}",
+  pinToLeft: "Ghim bên trái",
+  pinToRight: "Ghim bên phải",
+  unpin: "Bỏ ghim",
+  unpinAll: "Bỏ ghim tất cả",
+  noRecordsToDisplay: "Không có kết quả tìm kiếm phù hợp !",
+  //https://github.com/KevinVandy/mantine-react-table/blob/v1/packages/mantine-react-table/src/locales/en.ts
+  // ... and many more - see link below for full list of translation keys
+};
+
+
+
+export const _localizationPdf = {
+  selectedCountOfRowCountRowsSelected:
+    "{selectedCount} / {rowCount} hàng đang chọn",
+  clearSelection: "Xóa lựa chọn",
+  clearFilter: "Xóa bộ lọc",
+  clearSearch: "Xóa từ khóah",
+  clearSort: "Xóa sắp xếp",
+  showAll: "Hiển thị tất cả",
+  showAllColumns: "Hiển thị tất cả cột",
+  showHideColumns: "Hiển/ẩn cột",
+  showHideFilters: "Hiển/ẩn bộ lọc",
+  showHideSearch: "Hiển/ẩn tìm kiếm",
+  toggleDensity: "Đổi kích thước",
+  toggleFullScreen: "Xem toàn màn hình",
+  toggleSelectAll: "Chọn tất cả",
+  toggleSelectRow: "Chọn hàng",
+  toggleVisibility: "Hiện/ẩn",
+  rowsPerPage: "Số hàng hiển thị",
+  sortByColumnAsc: "Sắp xếp {column} tăng dần",
+  sortByColumnDesc: "Sắp xếp {column} giảm dần",
+  sortedByColumnAsc: "Đã sắp xếp {column} tăng dần",
+  sortedByColumnDesc: "Đã sắp xếp {column} giảm dần",
+  hideAll: "Ẩn tất cả",
+  hideColumn: "Ẩn {column} cột",
+  filteringByColumn: "Lọc theo {column} - {filterType} {filterValue}",
+  filterByColumn: "Lọc theo {column}",
+  pinToLeft: "Ghim bên trái",
+  pinToRight: "Ghim bên phải",
+  unpin: "Bỏ ghim",
+  unpinAll: "Bỏ ghim tất cả",
+  noRecordsToDisplay: "Không có kết quả tìm kiếm phù hợp !",
+  //https://github.com/KevinVandy/mantine-react-table/blob/v1/packages/mantine-react-table/src/locales/en.ts
+  // ... and many more - see link below for full list of translation keys
+};

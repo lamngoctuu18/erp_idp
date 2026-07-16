@@ -1,0 +1,248 @@
+/* ============================================================
+   Sidebar ERP — nhóm menu (NavbarLinksGroup.tsx)
+
+   Cấu trúc 3 cấp:
+   1. Tiêu đề phân hệ : cao 64px, chỉ có chữ đậm (không icon), viền dưới nhẹ
+   2. Mục menu        : cao 46px, bo góc 8px, gap icon–chữ 12px,
+                        có chevron nếu chứa mục con
+   3. Mục con         : thụt vào, có đường dọc phân cấp xám nhạt
+
+   Trạng thái:
+   - Đang xem trực tiếp : nền xanh nhạt + chữ/icon xanh + fw600 + thanh 3px trái
+   - Có mục con đang xem: chỉ đổi chữ/icon sang xanh (không nền)
+   - Hover              : nền xám xanh nhẹ, chuyển màu mượt
+   ============================================================ */
+
+/* Divider ngăn cách giữa các phân hệ */
+.group {
+  border-bottom: 1px solid #eef2f6;
+  margin-top: 12px; /* Tách biệt khoảng cách giữa các phân hệ */
+  margin-bottom: 8px;
+}
+
+.group:last-child {
+  border-bottom: none;
+}
+
+/* ---- Menu cha (group) ---- */
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px !important; /* Thay đổi padding ngang thành 16px */
+  min-height: 48px; /* Tăng nhẹ min-height của phân hệ */
+  margin-bottom: 4px; /* các mục cách đều, không dính nhau */
+  border-radius: 6px;
+  color: #0f172a !important; /* Đậm nét hơn */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.control:hover {
+  background-color: #f3f4f6;
+}
+
+.control[data-active],
+.control[data-parent-active] {
+  background-color: #f8fafc; /* Nền xám nhạt nhẹ khi phân hệ đang mở/active */
+}
+
+/* Cụm icon + nhãn bên trái (chevron nằm sát phải nhờ justify) */
+.controlInner {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Hộp bọc icon cấp 1 */
+.controlIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: #e2e8f0; /* Nền hộp mặc định */
+  transition: all 160ms ease;
+  flex-shrink: 0;
+}
+
+.controlIcon {
+  width: 18px;
+  height: 18px;
+  color: #475569 !important; /* Icon xám mặc định */
+  transition: color 160ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Khi active hoặc mở phân hệ con, đổi màu hộp bọc và icon */
+.control[data-active] .controlIconWrapper,
+.control[data-parent-active] .controlIconWrapper {
+  background-color: #e8f2fd; /* Nền hộp xanh nhạt */
+}
+
+.control[data-active] .controlIcon,
+.control[data-parent-active] .controlIcon {
+  color: #1687e8 !important; /* Icon xanh đậm */
+}
+
+.controlLabel {
+  margin-left: 12px;
+  font-size: 14.5px; /* Cỡ chữ to hơn (14.5px so với 13.5px) */
+  font-weight: 700;
+  color: #0f172a !important; /* Slate-900 nổi bật */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mũi tên expand/collapse */
+.chevron {
+  width: 16px;
+  height: 16px;
+  color: #475569;
+  transition: transform 200ms ease;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.control[data-active] .chevron,
+.control[data-parent-active] .chevron {
+  color: #1687e8;
+}
+
+.chevronOpened {
+  transform: rotate(0deg);
+}
+
+/* ---- Menu con (sub-link container) ---- */
+.subLinks {
+  margin-left: 0; /* Căn thẳng hàng với menu cha cấp 1 */
+  border-left: none; /* Bỏ đường kẻ dọc cấp 2 */
+  display: flex;
+  flex-direction: column;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* ---- Vùng mục con cấp 3: thụt vào + đường dọc phân cấp ---- */
+.subLinksNested {
+  position: relative;
+  padding: 0 0 0 24px; /* Xóa padding trên dưới */
+}
+
+.subLinksNested::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 0; /* Căn chỉnh vị trí đường kẻ dọc sát mép */
+  bottom: 0;
+  width: 1px;
+  background-color: #e2e8f0;
+}
+
+/* ---- Mục menu: cao 46px, bo góc 8px, gap icon–chữ 12px ---- */
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 46px;
+  padding: 0 12px;
+  margin-bottom: 2px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #475569 !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.linkIcon {
+  flex-shrink: 0;
+  color: #94a3b8;
+  transition: color 160ms ease;
+}
+
+.linkLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link:hover {
+  background-color: #f1f5f9; /* nền xám xanh nhẹ */
+  color: #0f172a !important;
+}
+
+.link:hover .linkIcon {
+  color: #64748b;
+}
+
+/* Chevron của mục có chứa mục con — bấm riêng để mở/đóng */
+.linkChevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  margin-right: -4px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: transform 200ms ease, color 160ms ease;
+}
+
+.linkChevronOpened {
+  transform: rotate(90deg);
+}
+
+/* ---- Đang xem trực tiếp mục này ---- */
+.link[data-active],
+.link[data-active]:hover {
+  background-color: #e8f2fd;
+  color: #1687e8 !important;
+  font-weight: 600;
+}
+
+.link[data-active] .linkIcon,
+.link[data-active]:hover .linkIcon,
+.link[data-active] .linkChevron {
+  color: #1687e8;
+}
+
+/* Thanh chỉ báo 3px bên trái */
+.link[data-active]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background-color: #1687e8;
+}
+
+/* ---- Có mục con đang xem: chỉ tô xanh chữ/icon, không nền ---- */
+.link[data-parent-active] {
+  color: #1687e8 !important;
+  font-weight: 600;
+}
+
+.link[data-parent-active] .linkIcon,
+.link[data-parent-active] .linkChevron {
+  color: #1687e8;
+}

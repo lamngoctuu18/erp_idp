@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+code, .erp-number, .erp-code, td, th {
+  font-variant-numeric: tabular-nums;
+}
+
+th, td {
+  white-space: nowrap !important;
+}
+
+code, .erp-number, .erp-code {
+  font-family: Consolas, Monaco, 'Courier New', monospace !important;
+}
+
+@media (min-width: 1200px) {
+  .col-lg-2-4 {
+    width: 20%;
+  }
+}
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+.align-items-center {
+  align-items: center;
+}
+
+.e-grid .e-focused:not(.e-menu-item):not(.e-editedbatchcell) {
+  box-shadow: none;
+}
+
+.invoice-code-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  padding: 4px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.invoice-code-badge:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.invoice-code-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e;
+}
+

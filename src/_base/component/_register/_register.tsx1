@@ -1,0 +1,121 @@
+
+// import { useEffect, useState } from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import { Register } from "../../../model/LoginModel";
+// import { AuthProvider } from "../../helper/IAuthProvider";
+// import classes from "./AuthenticationRegister.module.css";
+
+// export function AuthenticationRegister() {
+//   //#region  state
+//   const entity = {
+//     username: "",
+//     password: "",
+//     confirmPassword: "",
+//   };
+//   const form = useForm<Register>({
+//     initialValues: {
+//       ...entity,
+//     },
+
+//     validate: {
+//       username: isEmail("Vui lòng nhập Email"),
+//       password: hasLength(
+//         { min: 5, max: 100 },
+//         "Mật khẩu phải chưa từ 5-10 kí tự !"
+//       ),
+//       confirmPassword: (value) =>
+//         value !== password ? "Xác nhận mật khẩu không chính xác" : null,
+//     },
+//   });
+//   const navigate = useNavigate();
+
+//   const [visible, { toggle, open, close }] = useDisclosure(false);
+//   const location = useLocation();
+//   const queryParams = new URLSearchParams(location.search);
+//   const callbackParam = queryParams.get("callback");
+//   const isAuthenticated = AuthProvider.isAuthenticated();
+//   const [password, setPassword] = useState("");
+
+//   //#endregion
+//   const handleRegister = async (dataSubmit: Register) => {
+//     open();
+//     const data = {
+//       ...dataSubmit,
+//       username: dataSubmit.username.toLocaleLowerCase(),
+//     };
+//     //await AuthService.register(data);
+//     close();
+//     navigate("/auth/login");
+//   };
+
+//   const handleChangePassword = (password: string) => {
+//     setPassword(password);
+//     form.getInputProps("password").onChange(password);
+//   };
+
+//   useEffect(() => {
+//     return () => {
+//       window.scrollTo(0, 0);
+//       if (isAuthenticated === true) {
+//         navigate(callbackParam ?? "/");
+//       }
+//     };
+//   }, []);
+
+//   return (
+//     <Box
+//       component="form"
+//       maw={400}
+//       mx="auto"
+//       onSubmit={form.onSubmit((e: Register) => {
+//         handleRegister(e);
+//       })}
+//     >
+//       <LoadingOverlay
+//         visible={visible}
+//         zIndex={1000}
+//         overlayProps={{ radius: "sm", blur: 2 }}
+//       />
+//       <Title ta="center" className={classes.title}>
+//         Xin chào!
+//       </Title>
+//       <Text c="dimmed" size="sm" ta="center" mt={5}>
+//         Bạn đã có tài khoản?{" "}
+//         <Anchor
+//           onClick={() => navigate("/auth/login")}
+//           size="sm"
+//           underline="hover"
+//         >
+//           Đăng nhập
+//         </Anchor>
+//       </Text>
+
+//       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+//         <TextInput
+//           label="Email"
+//           placeholder="you@mantine.dev"
+//           withAsterisk
+//           {...form.getInputProps("username")}
+//         />
+//         <PasswordInput
+//           label="Mật khẩu"
+//           placeholder="Your password"
+//           withAsterisk
+//           mt="md"
+//           {...form.getInputProps("password")}
+//           onChange={(e) => handleChangePassword(e.target.value)}
+//         />
+//         <PasswordInput
+//           label="Xác nhận mật khẩu"
+//           placeholder="Your password"
+//           withAsterisk
+//           mt="md"
+//           {...form.getInputProps("confirmPassword")}
+//         />
+//         <Button fullWidth mt="xl" type="submit">
+//           Tạo tài khoản
+//         </Button>
+//       </Paper>
+//     </Box>
+//   );
+// }

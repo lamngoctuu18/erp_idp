@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  fixedasset-fe:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: idps-fixedasset-fe:latest
+    container_name: idps-fixedasset-fe
+    restart: always
+    ports:
+      # Ánh xạ cổng 8080 trên máy host vào cổng 80 (Nginx) bên trong container
+      - "127.0.0.1:8080:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
