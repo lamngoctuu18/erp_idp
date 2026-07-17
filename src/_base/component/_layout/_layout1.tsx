@@ -33,9 +33,11 @@ import { searchSideNavData } from "../../helper/FunctionHelper";
 import { LinksGroupProps } from "../../model/_base/LinksGroupProps";
 import TokenService from "../../../api/login/token.service";
 import { NotificationExtension } from "../../extension/NotificationExtension";
-import idpLogo from "../../../assets/images/logo-idp.png";
 import { repositoryAuth } from "../../_const/_constVar";
 //context
+
+// Logo web Tấn Phát cho trang trong (đặt trong thư mục public/)
+const tanPhatWebLogo = `${process.env.PUBLIC_URL}/logo-web-tanphat-removebg-preview.png`;
 
 export const Layout1 = () => {
   // #region state
@@ -132,8 +134,8 @@ export const Layout1 = () => {
                 size="sm"
               />
               <img
-                src={idpLogo}
-                alt="logo"
+                src={tanPhatWebLogo}
+                alt="Tấn Phát"
                 className={classes.headerLogoImg}
               />
             </Group>

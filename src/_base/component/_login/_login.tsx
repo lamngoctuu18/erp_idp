@@ -106,6 +106,7 @@ const FormLogin = () => {
   // States cho Form Đăng nhập
   const [loading, setLoading] = useState(false);
   const [ipAddress, setIpAddress] = useState("");
+  const [shake, setShake] = useState(false); // rung form khi đăng nhập sai
 
   // States cho Modal OTP
   const [otpOpened, setOtpOpened] = useState(false);
@@ -164,9 +165,13 @@ const FormLogin = () => {
 
       const account = findDemoAccount(username, password);
       if (!account) {
-        NotificationExtension.Fails(
-          "Tên đăng nhập hoặc mật khẩu không chính xác!"
-        );
+        // Báo lỗi ngay dưới trường + rung nhẹ form (không dùng popup lớn).
+        form.setErrors({
+          username: " ",
+          password: "Tên đăng nhập hoặc mật khẩu không chính xác.",
+        });
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
         return;
       }
 
@@ -311,15 +316,16 @@ const FormLogin = () => {
     <>
       <Box
         component="form"
-        className={style.form}
+        className={`${style.form} ${shake ? style.shake : ""}`}
         onSubmit={form.onSubmit(handleLogin)}
       >
+        <span className={style.formAccent} aria-hidden="true" />
         <div className={style.formHeader}>
           <Title order={2} className={style.formTitle}>
-            Đăng nhập
+            Đăng nhập hệ thống
           </Title>
           <Text className={style.formSubtitle}>
-            Vui lòng nhập thông tin tài khoản của bạn.
+            Nhập thông tin tài khoản được cấp để tiếp tục.
           </Text>
         </div>
 
@@ -368,10 +374,12 @@ const FormLogin = () => {
           fullWidth
           size="md"
           loading={loading}
-          rightSection={<ArrowRight size={17} strokeWidth={2.2} />}
+          rightSection={
+            loading ? undefined : <ArrowRight size={17} strokeWidth={2.2} className={style.submitArrow} />
+          }
           className={style.submitButton}
         >
-          {loading ? "Đang đăng nhập…" : "Đăng nhập"}
+          {loading ? "Đang xác thực…" : "Đăng nhập"}
         </Button>
       </Box>
 

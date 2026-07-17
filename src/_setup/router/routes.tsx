@@ -249,12 +249,13 @@ import DetailCeBankBranch from "../../views/CeBankBranch/DetailCeBankBranch";
 import DeleteCeBankBranch from "../../views/CeBankBranch/DeleteCeBankBranch";
 
 import CeBankAccountList from "../../views/CeBankAccount/CeBankAccountList";
+
+// Phân hệ Quản lý Hợp đồng (Contract Management)
+import ContractManagement from "../../views/Contract/ContractManagement";
 import CreateCeBankAccount from "../../views/CeBankAccount/CreateCeBankAccount";
 import EditCeBankAccount from "../../views/CeBankAccount/EditCeBankAccount";
 import DetailCeBankAccount from "../../views/CeBankAccount/DetailCeBankAccount";
 import DeleteCeBankAccount from "../../views/CeBankAccount/DeleteCeBankAccount";
-
-const TEMP_HIDE_LOGIN_PAGE = true;
 
 /**
  * Router của base.
@@ -271,10 +272,6 @@ const router = createBrowserRouter([
     element: <Layout1 />,
     errorElement: <_404 />,
     loader: async () => {
-      if (TEMP_HIDE_LOGIN_PAGE) {
-        return null;
-      }
-
       const auth = localStorage.getItem("token");
       if (!auth) {
         throw redirect("/auth/login");
@@ -1823,6 +1820,24 @@ const router = createBrowserRouter([
         element: <ApActEventLineList />,
         handle: { crumb: () => ({ text: "Dòng bút toán", value: "/ApActEventLine/ApActEventLineList" }) },
       },
+      // ROUTING PHÂN HỆ QUẢN LÝ HỢP ĐỒNG
+      {
+        path: "/contract",
+        handle: {
+          crumb: () => ({ text: "Nhà Cung", value: "/contract/management" }),
+        },
+        children: [
+          {
+            index: true,
+            loader: () => redirect("/contract/management"),
+          },
+          {
+            path: "management",
+            element: <ContractManagement />,
+            handle: { crumb: () => ({ text: "Hợp Đồng", value: "/contract/management" }) },
+          },
+        ],
+      },
     ],
   },
   {
@@ -1832,7 +1847,6 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LayoutLogin />,
-        loader: () => (TEMP_HIDE_LOGIN_PAGE ? redirect("/") : null),
       },
       // Thêm route xác thực khác (register, quên mật khẩu...) tại đây.
     ],
@@ -1840,3 +1854,4 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
+

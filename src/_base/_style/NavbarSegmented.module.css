@@ -168,7 +168,7 @@
 }
 
 .headerLogoImg {
-  height: 60px; /* Giảm 25% kích thước (80px * 0.75 = 60px) */
+  height: 54px; /* Giảm thêm 10% cho vừa mắt (60px * 0.9 = 54px) */
   width: auto;
   object-fit: contain;
   display: block;

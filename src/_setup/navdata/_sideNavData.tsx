@@ -386,6 +386,17 @@ export const _sideNavData: LinksGroupProps[] = [
     ],
   },
   {
+    label: "Quản lý Hợp đồng",
+    initiallyOpened: false,
+    links: [
+      {
+        label: "Hợp đồng nhà cung cấp",
+        link: "/contract/management",
+        icon: IconFileText,
+      },
+    ],
+  },
+  {
     label: "Công nợ phải trả",
     initiallyOpened: false,
     links: [
